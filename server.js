@@ -11,9 +11,9 @@ const PORT = process.env.PORT || 3001;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(express.static("./develop/public"));
+app.use(express.static("./Develop/public"));
 
-app.post("./api/notes", (req, res) => {
+app.post("/api/notes", (req, res) => {
   const notes = JSON.parse(fs.readFileSync("./Develop/db/db.json"));
   console.info(`${req.method} request received to submit a note`);
   const newNote = req.body;
