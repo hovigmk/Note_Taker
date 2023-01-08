@@ -14,6 +14,10 @@ app.use(express.json());
 
 app.use(express.static("./Develop/public"));
 
+app.get("/api/notes", (req, res) => {
+  res.sendFile(path.join(__dirname, "./Develop/db/db.json"));
+});
+
 app.post("/api/notes", (req, res) => {
   const notes = JSON.parse(fs.readFileSync("./Develop/db/db.json"));
   console.info(`${req.method} request received to submit a note`);
@@ -24,10 +28,21 @@ app.post("/api/notes", (req, res) => {
   res.json(notes);
 });
 
+app.delete("/api/notes/:id", (req, res) => {
+  const notes = JSON.parse(fs.readFileSync("./Develop/db/db.json"));
+  console.info(`${req.method} request received to delete a note`);
+  const delNote = notes.filter((rmvNote) => rmvNote.id !== req.params.id);
+  fs.writeFileSync("./Develop/db/db.json", JSON.stringify(delNote));
+  res.json(delNote);
+});
+
 // html routes
-// app.get('/', (req, res) =>
-//   res.sendFile(path.join(__dirname, '/public/index.html'))
-// );
+app.get("/", (req, res) =>
+  res.sendFile(path.join(__dirname, "/public/index.html"))
+);
+app.get("/notes", (req, res) =>
+  res.sendFile(path.join(__dirname, "/public/notes.html"))
+);
 
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)
