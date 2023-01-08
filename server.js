@@ -38,10 +38,10 @@ app.delete("/api/notes/:id", (req, res) => {
 
 // html routes
 app.get("/", (req, res) =>
-  res.sendFile(path.join(__dirname, "/public/index.html"))
+  res.sendFile(path.join(__dirname, "/Develop/public/index.html"))
 );
 app.get("/notes", (req, res) =>
-  res.sendFile(path.join(__dirname, "/public/notes.html"))
+  res.sendFile(path.join(__dirname, "/Develop/public/notes.html"))
 );
 
 app.listen(PORT, () =>
